@@ -16,30 +16,28 @@ d3.json(geoData).then(function (data) {
     function styleInfo(feature) {
         return {
             opacity: 1,
-            fillOpacity: 1,
+            fillOpacity: .5,
             fillColor: getColor(feature.properties.mag),
-            color: "#000000",
+            color: "black",
             radius: getRadius(feature.properties.mag),
-            stroke: true,
-            weight: 0.5
+            weight: 1.5
         };
     }
 
     function getColor(magnitude) {
-        switch (true) {
-            case magnitude > 5:
-                return "red";
-            case magnitude > 4:
-                return "orange";
-            case magnitude > 3:
-                return "yellow";
-            case magnitude > 2:
-                return "lime";
-            case magnitude > 1:
-                return "green";
-            default:
-                return "grey";
-        }
+           if( magnitude > 5){
+            return "red";
+           } else if(magnitude > 4){
+            return "orange";
+           }else if(magnitude > 3){
+            return "yellow";
+           }else if(magnitude > 2){
+            return "lime";
+           }else if(magnitude > 1){
+            return "green";
+           }else{
+               return "grey";
+           }
     }
     function getRadius(magnitude) {
         if (magnitude === 0) {
@@ -78,7 +76,7 @@ d3.json(geoData).then(function (data) {
         var labels = [];
             
             for (var i = 0; i < magnitude.length; i++) {
-                labels.push("<li style=\"background-color: " + colors[i] + "\">" + magnitude[i] + (magnitude[i + 1] ? "&ndash;" + magnitude[i + 1] + "<br>" : "+") + "</li>");
+                labels.push("<li style=\"background-color: " + colors[i] + "\">" + magnitude[i] + "&ndash;" + magnitude[i + 1] + "</li>");
             }
         div.innerHTML += "<ul>" + labels.join("") + "</ul>";
         return div;
